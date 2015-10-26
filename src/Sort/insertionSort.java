@@ -48,9 +48,9 @@ public class insertionSort {
 		insertionSort(arr1);
 		insertionSort(arr2);
 		insertionSort(arrReverse);
+		System.out.println("before Sorted:" + Arrays.toString(arrRandom));
 		insertionSort(arrRandom);
 		
-		System.err.println("before Sorted:" + Arrays.toString(arrRandom));
 		System.out.println("atfer Sorted:"+Arrays.toString((insertionSort(arrRandom))));
 		int result = isSorted(insertionSort(arrRandom));
 		System.out.println("Is Sorted:" + result);
