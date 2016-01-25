@@ -4,7 +4,7 @@ public class RedBlackTree<T extends Comparable<T>> {
 
 	private RBTNode<T> nil = new RBTNode<T>();
 	private RBTNode<T> root = nil;
-	
+
 	public RedBlackTree() {
 		root.left = nil;
 		root.right = nil;
@@ -38,19 +38,15 @@ public class RedBlackTree<T extends Comparable<T>> {
 		// newnNode의 child를 nil로 초기화,color는 RED로 초기
 		newNode.left = tree.nil;
 		newNode.right = tree.nil;
-		if(newNode != tree.root) {
+		// if(newNode != tree.root) {
 		newNode.color = RBTNode.RED;
-
 		insertFixup(tree, newNode); // newNode의 color가 Red이고, parent가 red인 경우
 									// 조정.
-		}
-
+		// }
 	}
 
 	public void insertFixup(RedBlackTree<T> t, RBTNode<T> fixupNode) {
-	//무한루프를돈다.
 		while (fixupNode.parent.color == RBTNode.RED) {
-			System.out.println("여기2");
 			// fixupNode의 parent가 GP의 left child 일 때,
 			if (fixupNode.parent == fixupNode.parent.parent.left) {
 				RBTNode<T> uncleNode = fixupNode.parent.parent.right;
@@ -70,19 +66,17 @@ public class RedBlackTree<T extends Comparable<T>> {
 					fixupNode.parent.parent.color = RBTNode.RED;
 					rightRotate(t, fixupNode.parent.parent);
 				}
-				//t.root.color = RBTNode.BLACK;
-			} 
-			else {
-				//fixupNode의 parent가 GP의 right child일 때, 
-				//위의 left child일때와 대칭적인 문제이므로 left<->right를 변경해 해결함
+			} else {
+				// fixupNode의 parent가 GP의 right child일 때,
+				// 위의 left child일때와 대칭적인 문제이므로 left<->right를 변경해 해결함
 				RBTNode<T> uncleNode = fixupNode.parent.parent.left;
-				if(uncleNode.color == RBTNode.RED) {
+				if (uncleNode.color == RBTNode.RED) {
 					fixupNode.parent.color = RBTNode.BLACK;
 					uncleNode.color = RBTNode.BLACK;
 					fixupNode.parent.parent.color = RBTNode.RED;
 					fixupNode = fixupNode.parent.parent;
 				} else {
-					if(fixupNode == fixupNode.parent.left) {
+					if (fixupNode == fixupNode.parent.left) {
 						fixupNode = fixupNode.parent;
 						rightRotate(t, fixupNode);
 					}
@@ -252,24 +246,53 @@ public class RedBlackTree<T extends Comparable<T>> {
 		return node;
 	}
 
-	public void printTree(RBTNode<T> node) {
-		if (node != null) {
-			printTree(node.left);
+	public void printTree(RedBlackTree<Integer> tree, RBTNode<T> node) {
+		if (node != tree.nil) {
+			printTree(tree, node.left);
 			System.out.print(((node.color == RBTNode.RED) ? "Color: Red " : "Color: Black ") + "Key: " + node.key
 					+ " Parent: " + node.parent.key + "\n");
-			printTree(node.right);
+			printTree(tree, node.right);
 		}
 	}
 
 	public static void main(String[] args) {
 		RedBlackTree<Integer> tree = new RedBlackTree<>();
-        RBTNode<Integer> node1 = new RBTNode<>(26);
-        RBTNode<Integer> node2 = new RBTNode<>(17);
-        RBTNode<Integer> node3 = new RBTNode<>(41);
-        RedBlackTree<Integer> rbt = new RedBlackTree<>();
-        rbt.insert(tree, node1);
-        rbt.insert(tree, node2);
-        rbt.insert(tree, node3);
-        rbt.printTree(tree.root);
+		tree.nil.setColor(1);
+		RBTNode<Integer> node1 = new RBTNode<>(26);
+		RBTNode<Integer> node2 = new RBTNode<>(17);
+		RBTNode<Integer> node3 = new RBTNode<>(41);
+		RBTNode<Integer> node4 = new RBTNode<>(14);
+		RBTNode<Integer> node5 = new RBTNode<>(21);
+		RBTNode<Integer> node6 = new RBTNode<>(30);
+		RBTNode<Integer> node7 = new RBTNode<>(47);
+		RBTNode<Integer> node8 = new RBTNode<>(10);
+		RBTNode<Integer> node9 = new RBTNode<>(16);
+		RBTNode<Integer> node10 = new RBTNode<>(19);
+		RedBlackTree<Integer> rbt = new RedBlackTree<>();
+		rbt.insert(tree, node1);
+		rbt.insert(tree, node2);
+		rbt.insert(tree, node3);
+		rbt.insert(tree, node4);
+		rbt.insert(tree, node5);
+		rbt.insert(tree, node6);
+		rbt.insert(tree, node7);
+		rbt.insert(tree, node8);
+		rbt.insert(tree, node9);
+		rbt.insert(tree, node10);
+		rbt.printTree(tree, tree.root);
+		//red node 지우기.
+		rbt.delete(tree, node10);
+		System.out.println("========after delete red node key:19==========");
+		rbt.printTree(tree, tree.root);
+		//지웠던 노드 다시 추가해서, 처음 만든 tree와 비교하
+		rbt.insert(tree,node10);
+		System.out.println("=====key:19인 노드 삭제 이전과 같은가?======================");
+		rbt.printTree(tree, tree.root);
+		
+		rbt.delete(tree, node5);
+		System.out.println("========after delet black node key:21 ==========");
+		rbt.printTree(tree, tree.root);
+		// 17과 19가 부모-자식 red-red인 관계로 삭제됨.
+		
 	}
 }
