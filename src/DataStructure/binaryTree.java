@@ -26,6 +26,20 @@ public class binaryTree {
 		
 		
 	}
+	public static boolean isBST(treeNode root){
+		return isBST(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
+	}
+	public static boolean isBST(treeNode root, Integer min, Integer max){
+		if(root == null){
+			return false;
+		}
+		if(root.data < min || root.data > max){
+			return false;
+		}
+		return isBST(root.left, min,root.data) && isBST(root.right, root.data, max);
+	
+	}
+	
 	public static void main(String[] args) {
 		binaryTree bTree = new binaryTree();
 		treeNode rootNode = createBinaryTree();
