@@ -1,4 +1,4 @@
-package Sort;
+package sort;
 
 import java.util.Arrays;
 
@@ -39,7 +39,7 @@ public class insertionSort {
 
 	public static void main(String[] args) {
 		int[] arrNull = {};
-		int[] arr1 = { 2 };
+		int[] arr1 = { 2 }; //객체 (주소값) 
 		int[] arr2 = { 2, 3 };
 		int[] arrReverse = { 10, 5 };
 		int[] arrRandom = { 10, 2, 3, 7, 80, 9, 11, 20, 54, 46, 78, 85, 69, 543, 11, 77, 65, 32, 50, 13, 26 };

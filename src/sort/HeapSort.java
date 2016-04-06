@@ -1,4 +1,4 @@
-package Sort;
+package sort;
 
 public class HeapSort {
 	
@@ -10,6 +10,7 @@ public class HeapSort {
 			arr[i]=temp;
 			int[] shorted = new int[arr.length-1];
 			System.arraycopy(arr, arr[0], shorted, shorted[0], shorted.length);
+			max_heapify(shorted,1);
 		}
 	}
 	public static void build_MaxHeap(int[] arr){

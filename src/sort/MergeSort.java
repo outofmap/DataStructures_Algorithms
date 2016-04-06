@@ -1,4 +1,4 @@
-package Sort;
+package sort;
 
 import java.util.Arrays;
 
@@ -19,7 +19,6 @@ public class MergeSort {
 		mergeSort(right);
 		merge(left,right,arr);
 		return arr;
- 		
 	}
 	
 	public static void merge(int[] left,int[] right,int[] result){
